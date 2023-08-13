@@ -46,7 +46,10 @@
                                     </td>
                                     <td>{{ $product->model_no }}</td>
                                     <td>
-                                        <a href="{{ route('product.edit', $product->id) }}" class="pr-3 text-lime-500 font-semibold">
+                                        <a href="{{ route('serial.index', $product->id) }}" class="pr-2 font-semibold text-gray-400">
+                                            Seri
+                                        </a>
+                                        <a href="{{ route('product.edit', $product->id) }}" class="pr-2 text-lime-500 font-semibold">
                                             Edit
                                         </a>
                                         <form action="{{ route('product.destroy', $product->id) }}" method="post" class="inline">

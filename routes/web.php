@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SerialNumberConroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     })->name('dashboard');
 
     Route::resource('/product', ProductController::class);
+    Route::resource('/product/{product_id}/serial', SerialNumberConroller::class);
 });
 
 Route::middleware('auth')->group(function () {
