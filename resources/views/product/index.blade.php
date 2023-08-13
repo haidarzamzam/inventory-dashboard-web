@@ -1,8 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Master Barang
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Master Barang
+            </h2>
+            <a href="{{ route('product.create') }}">
+                <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
+                    Tambah Barang
+                </button>
+            </a>
+        </div>
     </x-slot>
 
     @if (session('success'))
@@ -23,7 +30,7 @@
                         <thead>
                             <tr class="text-left">
                                 <th>Nama Barang</th>
-                                <th>Brand</th>
+                                <th>Merek</th>
                                 <th>Harga</th>
                                 <th>Model</th>
                                 <th>Aksi</th>
