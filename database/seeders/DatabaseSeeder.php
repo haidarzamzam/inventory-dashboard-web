@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -13,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        /*User::factory()->create([
             'name'     => 'Admin',
             'email'    => 'adminidw@mailinator.com',
             'password' => bcrypt('adMin123')
@@ -23,6 +25,8 @@ class DatabaseSeeder extends Seeder
             'name'     => 'Super Admin',
             'email'    => 'superadminidw@mailinator.com',
             'password' => bcrypt('spradMin123')
-        ]);
+        ]);*/
+
+        Product::factory(10)->create();
     }
 }
