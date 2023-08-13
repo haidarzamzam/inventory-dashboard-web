@@ -65,8 +65,7 @@
                                             class="pr-2 text-green-500 font-semibold">
                                             Edit
                                         </a>
-                                        <form action="{{ route('serial.destroy', ['product_id' => $product->id, 'serial', $serial->id]) }}"
-                                            method="post" class="inline">
+                                        <form action="serial/{{ $serial->id }}" method="post" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="font-bold text-red-500">

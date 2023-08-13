@@ -67,8 +67,11 @@ class SerialNumberConroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, SerialNumber $serial)
     {
-        //
+        $num = $serial->serial_no;
+        $serial->delete();
+
+        return redirect()->back()->with('success', "Nomor serial $num berhasil dihapus!");
     }
 }
