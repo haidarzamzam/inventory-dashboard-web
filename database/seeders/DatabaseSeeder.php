@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Product;
+use App\Models\SerialNumber;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('spradMin123')
         ]);*/
 
-        Product::factory(10)->create();
+        // Product::factory(10)->create();
+        SerialNumber::factory(10)->create();
     }
 }
