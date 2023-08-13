@@ -46,7 +46,7 @@
                                     </td>
                                     <td>{{ $product->model_no }}</td>
                                     <td>
-                                        <a href="" class="pr-3">
+                                        <a href="{{ route('product.edit', $product->id) }}" class="pr-3 text-lime-500 font-semibold">
                                             Edit
                                         </a>
                                         <form action="{{ route('product.destroy', $product->id) }}" method="post" class="inline">
