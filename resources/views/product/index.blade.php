@@ -5,6 +5,16 @@
         </h2>
     </x-slot>
 
+    @if (session('success'))
+        <div class="pt-5">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-green-400 border border-green-500 p-3 sm:rounded-lg flex justify-between">
+                    <span class="text-white">{{ session('success') }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,7 +26,7 @@
                                 <th>Brand</th>
                                 <th>Harga</th>
                                 <th>Model</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,8 +39,16 @@
                                     </td>
                                     <td>{{ $product->model_no }}</td>
                                     <td>
-                                        Edit
-                                        Delete
+                                        <a href="" class="pr-3">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('product.destroy', $product->id) }}" method="post" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="font-bold text-red-500">
+                                                Hapus
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
