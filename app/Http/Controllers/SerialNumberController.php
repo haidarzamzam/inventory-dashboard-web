@@ -88,4 +88,15 @@ class SerialNumberController extends Controller
 
         return redirect()->back()->with('success', "Nomor serial $num berhasil dihapus!");
     }
+
+    public function getByProduct(string $product_id)
+    {
+        $serial = SerialNumber::select('serial_no')
+            ->where('product_id', $product_id)
+            ->get()
+            ->pluck('serial_no')
+            ->toArray();
+
+        return $serial;
+    }
 }
