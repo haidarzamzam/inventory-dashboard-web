@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Detail Transaksi
+                Detail Transaksi #{{ $trans_no }}
             </h2>
             <a href="{{ route('detail.create', $transaction_id) }}">
                 <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
@@ -29,7 +29,6 @@
                     <table class="table-auto w-full border-separate border-spacing-y-4">
                         <thead>
                             <tr class="text-left">
-                                <th>ID Transaksi</th>
                                 <th>Barang</th>
                                 <th>Nomor Seri</th>
                                 <th>Harga</th>
@@ -40,7 +39,6 @@
                         <tbody>
                             @foreach ($transactions as $detail)
                                 <tr>
-                                    <td>{{ $detail->trans_no }}</td>
                                     <td>{{ $detail->product_name }}</td>
                                     <td>{{ $detail->serial_no }}</td>
                                     <td>

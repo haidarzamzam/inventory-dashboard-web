@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,13 @@ class TransactionDetailController extends Controller
      */
     public function index(string $transaction_id)
     {
+        $trans_no = Transaction::select('trans_no')->where('id', $transaction_id)->first();
         $transaction = TransactionDetail::getTransaction($transaction_id);
 
         return view('transaction_detail.index', [
             'transaction_id' => $transaction_id,
-            'transactions'   => $transaction
+            'transactions'   => $transaction,
+            'trans_no'       => $trans_no->trans_no ?? ''
         ]);
     }
 
