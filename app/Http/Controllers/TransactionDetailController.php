@@ -63,8 +63,10 @@ class TransactionDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, TransactionDetail $detail)
     {
-        //
+        $detail->delete();
+
+        return redirect()->back()->with('success', "Transaksi berhasil dihapus!");
     }
 }

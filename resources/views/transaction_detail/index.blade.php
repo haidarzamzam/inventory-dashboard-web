@@ -38,18 +38,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)
+                            @foreach ($transactions as $detail)
                                 <tr>
-                                    <td>{{ $transaction->trans_no }}</td>
-                                    <td>{{ $transaction->product_name }}</td>
-                                    <td>{{ $transaction->serial_no }}</td>
+                                    <td>{{ $detail->trans_no }}</td>
+                                    <td>{{ $detail->product_name }}</td>
+                                    <td>{{ $detail->serial_no }}</td>
                                     <td>
-                                        Rp{{ number_format($transaction->price, 0, ',', '.') }}
+                                        Rp{{ number_format($detail->price, 0, ',', '.') }}
                                     </td>
                                     <td>
-                                        Rp{{ number_format($transaction->discount, 0, ',', '.') }}
+                                        Rp{{ number_format($detail->discount, 0, ',', '.') }}
                                     </td>
-                                    <td>Edit Hapus</td>
+                                    <td>
+                                        Edit
+                                        <form action="{{ route('detail.destroy', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
+                                            method="post" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="font-bold text-red-500">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
