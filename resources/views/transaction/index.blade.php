@@ -45,7 +45,17 @@
                                     </td>
                                     <td>{{ $transaction->customer }}</td>
                                     <td>{{ $transaction->trans_type }}</td>
-                                    <td>Detail Edit Hapus</td>
+                                    <td>
+                                        Detail
+                                        Edit
+                                        <form action="{{ route('transaction.destroy', $transaction->id) }}" method="post" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="font-bold text-red-500">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

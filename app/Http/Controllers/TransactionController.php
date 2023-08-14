@@ -62,6 +62,10 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transaction = Transaction::find($id);
+        $trans_no = $transaction->trans_no;
+        $transaction->delete();
+
+        return redirect()->back()->with('success', "Transaksi $trans_no berhasil dihapus!");
     }
 }
