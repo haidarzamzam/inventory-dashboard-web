@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\SerialNumber;
+use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);*/
 
         // Product::factory(10)->create();
-        SerialNumber::factory(10)->create();
+        // SerialNumber::factory(10)->create();
+        Transaction::factory(10)->create();
     }
 }
