@@ -29,7 +29,7 @@
                     <table class="table-auto w-full border-separate border-spacing-y-4">
                         <thead>
                             <tr class="text-left">
-                                <th>No.</th>
+                                <th>ID</th>
                                 <th>Tanggal</th>
                                 <th>Pelanggan</th>
                                 <th>Tipe</th>
