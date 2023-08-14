@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SerialNumberController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// add auth check middleware
 Route::get('/serial/{product_id}', [SerialNumberController::class, 'getByProduct'])->name('api.serial');
+Route::get('/transaction/{type}', [TransactionController::class, 'getByType'])->name('api.transaction');

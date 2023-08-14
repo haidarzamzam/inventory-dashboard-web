@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SerialNumberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
@@ -32,6 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function() {
     
     Route::resource('/transaction', TransactionController::class);
     Route::resource('/transaction/{transaction_id}/detail', TransactionDetailController::class);
+
+    Route::controller(ReportController::class)
+        ->prefix('report')
+        ->as('report.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+        });
 });
 
 Route::middleware('auth')->group(function () {

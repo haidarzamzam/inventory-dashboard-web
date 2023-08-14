@@ -23,6 +23,9 @@
                         :active="request()->routeIs('transaction.*') || request()->routeIs('detail.*')">
                         Transaksi
                     </x-nav-link>
+                    <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.*')">
+                        Laporan
+                    </x-nav-link>
                 </div>
             </div>
 
