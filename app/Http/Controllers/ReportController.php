@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -18,6 +18,13 @@ class ReportController extends Controller
             ->where('trans_type', $type)
             ->get();
         
+        return ['data' => $data];
+    }
+
+    public function getProduct()
+    {
+        $data = Product::getReport();
+
         return ['data' => $data];
     }
 }

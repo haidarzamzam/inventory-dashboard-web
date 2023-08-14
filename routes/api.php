@@ -30,4 +30,5 @@ Route::controller(ReportController::class)
     ->as('api.report.')
     ->group(function() {
         Route::get('/transaction/{type}', 'getTransactionByType');
+        Route::get('/product', 'getProduct');
     });

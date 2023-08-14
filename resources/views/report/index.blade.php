@@ -35,11 +35,32 @@
             </div>
         </div>
     </div>
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900">
+                <h3 class="font-semibold text-l text-gray-800 mb-8">
+                    Daftar Barang
+                </h3>
+
+                <table id="productTable" class="table-auto w-full border-separate border-spacing-y-4">
+                    <thead>
+                        <tr class="text-left">
+                            <th>Nama Barang</th>
+                            <th>Stok</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 
 <script src="{{ asset('js/code.jquery.com_jquery-3.7.0.min.js') }}"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
+    const BASE_URL = '/api/report'
     getTransaction('sell');
 
     $('#filter').on('change', function({ target }) {
@@ -49,7 +70,7 @@
 
     function getTransaction(transactionType) {
         $('#transactionTable').DataTable({
-            ajax: `/api/transaction/${transactionType}`,
+            ajax: `${BASE_URL}/transaction/${transactionType}`,
             columns: [
                 { data: 'trans_no' },
                 { data: 'trans_date' },
@@ -69,4 +90,12 @@
             destroy: true
         });
     }
+
+    $('#productTable').DataTable({
+        ajax: `${BASE_URL}/product`,
+        columns: [
+            { data: 'product_name' },
+            { data: 'stock' },
+        ],
+    });
 </script>
