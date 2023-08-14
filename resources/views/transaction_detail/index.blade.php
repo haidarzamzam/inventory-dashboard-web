@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Transaksi
+                Detail Transaksi
             </h2>
-            <a href="{{ route('transaction.create') }}">
+            <a href="{{ route('detail.create', $transaction_id) }}">
                 <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
                     Tambah Transaksi
                 </button>
@@ -29,10 +29,11 @@
                     <table class="table-auto w-full border-separate border-spacing-y-4">
                         <thead>
                             <tr class="text-left">
-                                <th>No.</th>
-                                <th>Tanggal</th>
-                                <th>Pelanggan</th>
-                                <th>Tipe</th>
+                                <th>ID Transaksi</th>
+                                <th>Barang</th>
+                                <th>Nomor Seri</th>
+                                <th>Harga</th>
+                                <th>Diskon</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -40,34 +41,20 @@
                             @foreach ($transactions as $transaction)
                                 <tr>
                                     <td>{{ $transaction->trans_no }}</td>
+                                    <td>{{ $transaction->product_name }}</td>
+                                    <td>{{ $transaction->serial_no }}</td>
                                     <td>
-                                        {{ date_format(date_create($transaction->trans_date), 'd M Y') }}
-                                    </td>
-                                    <td>{{ $transaction->customer }}</td>
-                                    <td>
-                                        {{ $transaction->trans_type == 'sell' ? 'penjualan' : 'pembelian' }}
+                                        Rp{{ number_format($transaction->price, 0, ',', '.') }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('detail.index', $transaction->id) }}" class="pr-2 font-semibold text-gray-400">
-                                            Detail
-                                        </a>
-                                        <a href="{{ route('transaction.edit', $transaction->id) }}" class="pr-2 text-green-500 font-semibold">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('transaction.destroy', $transaction->id) }}" method="post" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="font-bold text-red-500">
-                                                Hapus
-                                            </button>
-                                        </form>
+                                        Rp{{ number_format($transaction->discount, 0, ',', '.') }}
                                     </td>
+                                    <td>Edit Hapus</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
-                    {{ $transactions->links() }}
                 </div>
             </div>
         </div>

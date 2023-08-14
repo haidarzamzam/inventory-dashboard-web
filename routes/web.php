@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SerialNumberController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('/product/{product_id}/serial', SerialNumberController::class);
     
     Route::resource('/transaction', TransactionController::class);
+    Route::resource('/transaction/{transaction_id}/detail', TransactionDetailController::class);
 });
 
 Route::middleware('auth')->group(function () {
