@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionDetailRequest;
 use App\Models\Product;
+use App\Models\SerialNumber;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ class TransactionDetailController extends Controller
         $data = $request->validated();
 
         TransactionDetail::create($data);
+        $this->updateSerialNumber($data['transaction_id'], $data['serial_no']);
 
         return redirect()->route('detail.index', $data['transaction_id'])
             ->with('success', 'Detail transaksi berhasil ditambahkan!');
@@ -81,6 +83,7 @@ class TransactionDetailController extends Controller
         $data = $request->validated();
 
         $detail->update($data);
+        $this->updateSerialNumber($data['transaction_id'], $data['serial_no']);
     
         return redirect()->back()->with('success', "Transaksi berhasil diperbarui!");
     }
@@ -93,5 +96,13 @@ class TransactionDetailController extends Controller
         $detail->delete();
 
         return redirect()->back()->with('success', "Transaksi berhasil dihapus!");
+    }
+
+    private function updateSerialNumber($transaction_id, $serial_no)
+    {
+        $transaction = Transaction::find($transaction_id);
+        $used = $transaction->trans_type == 'sell';
+        $serial = SerialNumber::where('serial_no', $serial_no)->first();
+        $serial->update(['used_table' => $used]);
     }
 }
