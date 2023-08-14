@@ -62,17 +62,27 @@ class TransactionDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, TransactionDetail $detail)
     {
-        //
+        $product = Product::all();
+        
+        return view('transaction_detail.edit', [
+            'transaction_id' => $id,
+            'products'       => $product,
+            'detail'         => $detail,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionDetailRequest $request, string $id, TransactionDetail $detail)
     {
-        //
+        $data = $request->validated();
+
+        $detail->update($data);
+    
+        return redirect()->back()->with('success', "Transaksi berhasil diperbarui!");
     }
 
     /**

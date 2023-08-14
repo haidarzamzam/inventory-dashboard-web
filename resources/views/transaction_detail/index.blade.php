@@ -48,7 +48,10 @@
                                         Rp{{ number_format($detail->discount, 0, ',', '.') }}
                                     </td>
                                     <td>
-                                        Edit
+                                        <a href="{{ route('detail.edit', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
+                                            class="pr-2 text-green-500 font-semibold">
+                                            Edit
+                                        </a>
                                         <form action="{{ route('detail.destroy', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
                                             method="post" class="inline">
                                             @csrf
