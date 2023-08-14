@@ -49,7 +49,9 @@
                                     </td>
                                     <td>
                                         Detail
-                                        Edit
+                                        <a href="{{ route('transaction.edit', $transaction->id) }}" class="pr-2 text-green-500 font-semibold">
+                                            Edit
+                                        </a>
                                         <form action="{{ route('transaction.destroy', $transaction->id) }}" method="post" class="inline">
                                             @csrf
                                             @method('DELETE')

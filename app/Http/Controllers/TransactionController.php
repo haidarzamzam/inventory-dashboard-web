@@ -53,15 +53,26 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $transaction = Transaction::find($id);
+
+        return view('transaction.edit', [
+            'id' => $id,
+            'transaction' => $transaction
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionRequest $request, string $id)
     {
-        //
+        $transaction = Transaction::find($id);
+        $data = $request->validated();
+        $trans_no = $transaction->trans_no;
+
+        $transaction->update($data);
+
+        return redirect()->back()->with('success', "Transaksi #$trans_no berhasil diperbarui!");
     }
 
     /**
@@ -73,6 +84,6 @@ class TransactionController extends Controller
         $trans_no = $transaction->trans_no;
         $transaction->delete();
 
-        return redirect()->back()->with('success', "Transaksi $trans_no berhasil dihapus!");
+        return redirect()->back()->with('success', "Transaksi #$trans_no berhasil dihapus!");
     }
 }
