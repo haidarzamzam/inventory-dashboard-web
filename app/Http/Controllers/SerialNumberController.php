@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SerialNumberRequest;
 use App\Models\Product;
 use App\Models\SerialNumber;
-use Illuminate\Http\Request;
 
-class SerialNumberConroller extends Controller
+class SerialNumberController extends Controller
 {
     /**
      * Display a listing of the resource.
