@@ -62,17 +62,25 @@ class SerialNumberConroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, SerialNumber $serial)
     {
-        //
+        return view('serial.edit', [
+            'product_id' => $id,
+            'serial'     => $serial
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SerialNumberRequest $request, string $id, SerialNumber $serial)
     {
-        //
+        $data = $request->validated();
+        $serial_number = $serial->serial_no;
+
+        $serial->update($data);
+     
+        return redirect()->back()->with('success', "Nomor seri $serial_number berhasil diperbarui!");
     }
 
     /**

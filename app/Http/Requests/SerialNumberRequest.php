@@ -23,11 +23,19 @@ class SerialNumberRequest extends FormRequest
     {
         return [
             'product_id' => 'required|numeric|exists:products,id',
-            'serial_no'  => 'required|numeric|digits:6',
             'price'      => 'required|numeric',
             'prod_date'  => 'required|date',
             'warranty_start' => 'required|date|after_or_equal:prod_date',
-            'warranty_duration' => 'required|numeric|min:1'
+            'warranty_duration' => 'required|numeric|min:1',
+            'serial_no'  => 'required|numeric|digits:6', // add unique validation
+            /*'serial_no'  => [
+                'required',
+                'numeric',
+                'digits:6',
+                Rule::unique('serial_numbers')
+                    ->where('product_id', $this->product_id)
+                    ->ignore($this->serial)
+            ],*/
         ];
     }
 }
