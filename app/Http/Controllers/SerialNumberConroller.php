@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SerialNumberRequest;
 use App\Models\Product;
 use App\Models\SerialNumber;
 use Illuminate\Http\Request;
@@ -27,17 +28,27 @@ class SerialNumberConroller extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('serial.create', [
+            'product' => $product
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SerialNumberRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['used_table'] = 0;
+
+        SerialNumber::create($data);
+
+        return redirect()->route('serial.index', $data['product_id'])
+            ->with('success', 'Nomor seri ' . $data['serial_no'] . ' berhasil ditambahkan!');
     }
 
     /**
