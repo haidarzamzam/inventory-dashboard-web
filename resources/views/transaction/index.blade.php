@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Transaksi
             </h2>
-            <a href="{{ route('product.create') }}">
+            <a href="{{ route('transaction.create') }}">
                 <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
                     Tambah Transaksi
                 </button>
@@ -44,7 +44,9 @@
                                         {{ date_format(date_create($transaction->trans_date), 'd M Y') }}
                                     </td>
                                     <td>{{ $transaction->customer }}</td>
-                                    <td>{{ $transaction->trans_type }}</td>
+                                    <td>
+                                        {{ $transaction->trans_type == 'sell' ? 'penjualan' : 'pembelian' }}
+                                    </td>
                                     <td>
                                         Detail
                                         Edit

@@ -20,7 +20,7 @@ class TransactionFactory extends Factory
             'trans_date' => fake()->date(),
             'trans_no'   => fake()->randomNumber(4),
             'customer'   => fake()->name(),
-            'trans_type' => fake()->userName(),
+            'trans_type' => fake()->randomElement(['sell', 'buy']),
         ];
     }
 }

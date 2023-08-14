@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -22,15 +23,21 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('transaction.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['trans_date'] = date('Y-m-d');
+
+        Transaction::create($data);
+
+        return redirect()->route('transaction.index')
+            ->with('success', 'Transaksi ' . $data['trans_no'] . ' berhasil ditambahkan!');
     }
 
     /**
