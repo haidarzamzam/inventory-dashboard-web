@@ -30,11 +30,7 @@ class SerialNumberConroller extends Controller
      */
     public function create(string $id)
     {
-        $product = Product::find($id);
-
-        return view('serial.create', [
-            'product' => $product
-        ]);
+        return view('serial.create', ['product_id' => $id]);
     }
 
     /**

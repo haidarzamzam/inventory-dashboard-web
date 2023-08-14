@@ -1,10 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <span class="text-gray-400">
-                Master Barang > {{ $product->product_name }} > 
-            </span> 
-            <span class="text-gray-800">Tambah Nomor Seri</span>
+            Tambah Nomor Seri
         </h2>
     </x-slot>
 
@@ -22,10 +19,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="py-12 px-48 text-gray-900">
-                    <form action="{{ route('serial.store', $product->id) }}" method="post">
+                    <form action="{{ route('serial.store', $product_id) }}" method="post">
                         @csrf
 
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="product_id" value="{{ $product_id }}">
 
                         <div class="mb-4">
                             <label for="serial_no">
@@ -85,7 +82,7 @@
                             <button type="submit" class="text-sm py-3 px-5 bg-blue-500 text-white rounded font-semibold">
                                 Tambah
                             </button>
-                            <a href="{{ route('serial.index', $product->id) }}"
+                            <a href="{{ route('serial.index', $product_id) }}"
                                 class="text-sm py-3 px-7 bg-slate-400 text-white rounded font-semibold">
                                 Batal
                             </a>
