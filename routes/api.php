@@ -23,7 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // add auth check middleware
 Route::get('/serial/{product_id}', [SerialNumberController::class, 'getByProduct'])->name('api.serial');
-Route::get('/transaction/{type}', [TransactionController::class, 'getByType'])->name('api.transaction');
 
 Route::controller(ReportController::class)
     ->prefix('/report')
