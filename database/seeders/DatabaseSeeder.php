@@ -18,25 +18,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /*User::factory()->create([
-            'name'     => 'Admin',
-            'email'    => 'adminidw@mailinator.com',
-            'password' => bcrypt('adMin123')
-        ]);
-
-        User::factory()->create([
-            'name'     => 'Super Admin',
-            'email'    => 'superadminidw@mailinator.com',
-            'password' => bcrypt('spradMin123')
-        ]);*/
-
         // Product::factory(10)->create();
         // SerialNumber::factory(10)->create();
         // Transaction::factory(10)->create();
         // TransactionDetail::factory(10)->create();
 
         $this->call(RoleSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
