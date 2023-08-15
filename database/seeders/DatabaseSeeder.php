@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Product::factory(10)->create();
-        // SerialNumber::factory(10)->create();
-        // Transaction::factory(10)->create();
-        // TransactionDetail::factory(10)->create();
+        Product::factory(10)->create();
+        SerialNumber::factory(10)->create();
+        Transaction::factory(10)->create();
+        TransactionDetail::factory(10)->create();
 
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
