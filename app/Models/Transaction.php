@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
@@ -12,4 +13,16 @@ class Transaction extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public static function getLastOneMonth(string $type)
+    {
+        $query = "SELECT trans_date, COUNT(*) AS trx
+                FROM `transactions`
+                WHERE DATE(trans_date) >= DATE(NOW()) - INTERVAL 30 DAY
+                AND trans_type = '$type'
+                GROUP BY trans_type, trans_date
+                ORDER BY trans_date";
+        
+        return DB::select($query);
+    }
 }

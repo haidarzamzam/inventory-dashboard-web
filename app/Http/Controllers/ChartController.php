@@ -11,4 +11,11 @@ class ChartController extends Controller
     {
         return view('chart.index');
     }
+
+    public function getLastOneMonthTransaction(string $type)
+    {
+        $data = Transaction::getLastOneMonth($type);
+
+        return $data;
+    }
 }

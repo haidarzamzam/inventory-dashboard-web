@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SerialNumberController;
 use App\Http\Controllers\TransactionController;
@@ -30,4 +31,10 @@ Route::controller(ReportController::class)
     ->group(function() {
         Route::get('/transaction/{type}', 'getTransactionByType');
         Route::get('/product', 'getProduct');
+    });
+
+Route::controller(ChartController::class)
+    ->prefix('/chart')
+    ->group(function() {
+        Route::get('/transaction/{type}', 'getLastOneMonthTransaction');
     });
