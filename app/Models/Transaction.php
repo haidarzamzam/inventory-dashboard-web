@@ -20,6 +20,7 @@ class Transaction extends Model
                 FROM `transactions`
                 WHERE DATE(trans_date) >= DATE(NOW()) - INTERVAL 30 DAY
                 AND trans_type = '$type'
+                AND deleted_at IS NULL
                 GROUP BY trans_type, trans_date
                 ORDER BY trans_date";
         
@@ -31,6 +32,7 @@ class Transaction extends Model
         $query = "SELECT tr.trans_date, tr.trans_type, SUM(td.price) AS total
                 FROM `transaction_details` td
                 INNER JOIN `transactions` tr ON td.transaction_id = tr.id
+                WHERE td.deleted_at IS NULL
                 GROUP BY transaction_id, trans_date, trans_type";
         
         return DB::select($query);

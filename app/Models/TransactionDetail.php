@@ -22,7 +22,8 @@ class TransactionDetail extends Model
                 INNER JOIN products pr ON td.product_id = pr.id
                 INNER JOIN serial_numbers sn ON td.serial_no = sn.serial_no
                 WHERE tr.id = $id
-                AND td.product_id = sn.product_id";
+                AND td.product_id = sn.product_id
+                AND td.deleted_at IS NULL";
 
         return DB::select($query);
     }
