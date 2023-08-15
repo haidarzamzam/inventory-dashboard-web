@@ -25,4 +25,14 @@ class Transaction extends Model
         
         return DB::select($query);
     }
+
+    public static function getDailyTotal()
+    {
+        $query = "SELECT tr.trans_date, tr.trans_type, SUM(td.price) AS total
+                FROM `transaction_details` td
+                INNER JOIN `transactions` tr ON td.transaction_id = tr.id
+                GROUP BY transaction_id, trans_date, trans_type";
+        
+        return DB::select($query);
+    }
 }

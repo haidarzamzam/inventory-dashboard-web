@@ -35,6 +35,7 @@
                     <h3 class="font-semibold text-l text-gray-800">
                         Profit harian
                     </h3>
+                    <canvas id="dailyProfitChart"></canvas>
                 </div>
             </div>
         </div>
@@ -44,13 +45,15 @@
 <script src="{{ asset('js/code.jquery.com_jquery-3.7.0.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    const BASE_URL = '/api/chart';
+
     getChart('sell');
     getChart('buy');
 
     function getChart(transactionType) {
         const label = transactionType === 'sell' ? 'Penjualan' : 'Pembelian';
 
-        $.ajax(`/api/chart/transaction/${transactionType}`)
+        $.ajax(`${BASE_URL}/transaction/${transactionType}`)
             .then((transaction = []) => {
                 let labels = [];
                 let data = [];
@@ -63,7 +66,7 @@
                 const ctx = document.getElementById(`${transactionType}Chart`);
     
                 new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
                         labels,
                         datasets: [{
@@ -81,4 +84,30 @@
             })
             .catch(err => console.error(err));
     }
+
+    // daily profit chart
+    $.ajax(`${BASE_URL}/profit`)
+        .then(datas => {
+            const labels = Object.keys(datas);
+            const data = Object.values(datas);
+            const ctx = document.getElementById('dailyProfitChart');
+    
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Profit harian',
+                        data,
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        })
+        .catch(err => console.error(err));
 </script>

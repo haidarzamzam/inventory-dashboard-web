@@ -37,4 +37,5 @@ Route::controller(ChartController::class)
     ->prefix('/chart')
     ->group(function() {
         Route::get('/transaction/{type}', 'getLastOneMonthTransaction');
+        Route::get('/profit', 'getDailyProfit');
     });
