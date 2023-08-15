@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TransactionRequest extends FormRequest
 {
@@ -22,9 +23,16 @@ class TransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'trans_no'   => 'required|numeric|digits:4',
             'customer'   => 'required|max:100',
-            'trans_type' => 'required|in:sell,buy'
+            'trans_type' => 'required|in:sell,buy',
+            'trans_no'   => [
+                'required',
+                'numeric',
+                'digits:4',
+                Rule::unique('transactions')
+                    ->whereNull('deleted_at')
+                    ->ignore($this->transaction->id ?? 0)
+            ],
         ];
     }
 }

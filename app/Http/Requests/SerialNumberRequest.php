@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SerialNumberRequest extends FormRequest
 {
@@ -27,15 +28,15 @@ class SerialNumberRequest extends FormRequest
             'prod_date'  => 'required|date',
             'warranty_start' => 'required|date|after_or_equal:prod_date',
             'warranty_duration' => 'required|numeric|min:1',
-            'serial_no'  => 'required|numeric|digits:6', // add unique validation
-            /*'serial_no'  => [
+            'serial_no'  => [
                 'required',
                 'numeric',
                 'digits:6',
                 Rule::unique('serial_numbers')
                     ->where('product_id', $this->product_id)
+                    ->whereNull('deleted_at')
                     ->ignore($this->serial)
-            ],*/
+            ],
         ];
     }
 }
