@@ -26,6 +26,9 @@
                     <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.*')">
                         Laporan
                     </x-nav-link>
+                    <x-nav-link :href="route('chart.index')" :active="request()->routeIs('chart.*')">
+                        Grafik
+                    </x-nav-link>
                 </div>
             </div>
 

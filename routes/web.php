@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
         ->group(function() {
             Route::get('/', 'index')->name('index');
         });
+    
+    Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
 });
 
 Route::middleware('auth')->group(function () {
