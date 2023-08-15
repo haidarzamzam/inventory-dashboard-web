@@ -29,20 +29,15 @@ Route::middleware(['auth', 'verified'])->group(function() {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('/product', ProductController::class);
-    Route::resource('/product/{product_id}/serial', SerialNumberController::class);
+    Route::middleware('role:super_admin')->group(function() {
+        Route::resource('/product', ProductController::class);
+        Route::resource('/product/{product_id}/serial', SerialNumberController::class);
+        Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+        Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
+    });
     
     Route::resource('/transaction', TransactionController::class);
     Route::resource('/transaction/{transaction_id}/detail', TransactionDetailController::class);
-
-    Route::controller(ReportController::class)
-        ->prefix('report')
-        ->as('report.')
-        ->group(function() {
-            Route::get('/', 'index')->name('index');
-        });
-    
-    Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
 });
 
 Route::middleware('auth')->group(function () {

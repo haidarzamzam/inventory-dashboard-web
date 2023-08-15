@@ -15,20 +15,32 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('product.index')"
-                        :active="request()->routeIs('product.*') || request()->routeIs('serial.*')">
-                        Barang
-                    </x-nav-link>
-                    <x-nav-link :href="route('transaction.index')"
-                        :active="request()->routeIs('transaction.*') || request()->routeIs('detail.*')">
-                        Transaksi
-                    </x-nav-link>
-                    <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.*')">
-                        Laporan
-                    </x-nav-link>
-                    <x-nav-link :href="route('chart.index')" :active="request()->routeIs('chart.*')">
-                        Grafik
-                    </x-nav-link>
+
+                    @if (auth()->user()->hasPermissionTo('product'))
+                        <x-nav-link :href="route('product.index')"
+                            :active="request()->routeIs('product.*') || request()->routeIs('serial.*')">
+                            Barang
+                        </x-nav-link>
+                    @endif
+
+                    @if (auth()->user()->hasPermissionTo('read transaction') || auth()->user()->hasPermissionTo('crud transaction'))
+                        <x-nav-link :href="route('transaction.index')"
+                            :active="request()->routeIs('transaction.*') || request()->routeIs('detail.*')">
+                            Transaksi
+                        </x-nav-link>
+                    @endif
+
+                    @if (auth()->user()->hasPermissionTo('report'))
+                        <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.*')">
+                            Laporan
+                        </x-nav-link>
+                    @endif
+                    
+                    @if (auth()->user()->hasPermissionTo('chart'))
+                        <x-nav-link :href="route('chart.index')" :active="request()->routeIs('chart.*')">
+                            Grafik
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
