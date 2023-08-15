@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         // Product::factory(10)->create();
         // SerialNumber::factory(10)->create();
         // Transaction::factory(10)->create();
-        TransactionDetail::factory(10)->create();
+        // TransactionDetail::factory(10)->create();
+
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
