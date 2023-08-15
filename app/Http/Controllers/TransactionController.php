@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Transaction::class);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -51,12 +55,10 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Transaction $transaction)
     {
-        $transaction = Transaction::find($id);
-
         return view('transaction.edit', [
-            'id' => $id,
+            'id' => $transaction->id,
             'transaction' => $transaction
         ]);
     }
@@ -64,9 +66,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TransactionRequest $request, string $id)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
-        $transaction = Transaction::find($id);
         $data = $request->validated();
         $trans_no = $transaction->trans_no;
 
@@ -78,9 +79,8 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Transaction $transaction)
     {
-        $transaction = Transaction::find($id);
         $trans_no = $transaction->trans_no;
         $transaction->delete();
 
