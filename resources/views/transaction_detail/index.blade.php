@@ -4,11 +4,13 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Detail Transaksi #{{ $trans_no }}
             </h2>
-            <a href="{{ route('detail.create', $transaction_id) }}">
-                <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
-                    Tambah Transaksi
-                </button>
-            </a>
+            @if (auth()->user()->hasPermissionTo('crud transaction'))
+                <a href="{{ route('detail.create', $transaction_id) }}">
+                    <button type="button" class="text-sm p-3 bg-blue-500 text-white rounded font-semibold">
+                        Tambah Transaksi
+                    </button>
+                </a>
+            @endif
         </div>
     </x-slot>
 
@@ -33,7 +35,9 @@
                                 <th>Nomor Seri</th>
                                 <th>Harga</th>
                                 <th>Diskon</th>
-                                <th>Aksi</th>
+                                @if (auth()->user()->hasPermissionTo('crud transaction'))
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -47,20 +51,22 @@
                                     <td>
                                         Rp{{ number_format($detail->discount, 0, ',', '.') }}
                                     </td>
-                                    <td>
-                                        <a href="{{ route('detail.edit', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
-                                            class="pr-2 text-green-500 font-semibold">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('detail.destroy', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
-                                            method="post" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="font-bold text-red-500">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </td>
+                                    @if (auth()->user()->hasPermissionTo('crud transaction'))
+                                        <td>
+                                            <a href="{{ route('detail.edit', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
+                                                class="pr-2 text-green-500 font-semibold">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('detail.destroy', ['transaction_id' => $transaction_id, 'detail' => $detail->id]) }}"
+                                                method="post" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="font-bold text-red-500">
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

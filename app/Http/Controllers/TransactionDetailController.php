@@ -7,10 +7,11 @@ use App\Models\Product;
 use App\Models\SerialNumber;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
-use Illuminate\Http\Request;
 
 class TransactionDetailController extends Controller
 {
+    private $unauthorized_message = "THIS ACTION IS UNAUTHORIZED.";
+
     /**
      * Display a listing of the resource.
      */
@@ -31,6 +32,10 @@ class TransactionDetailController extends Controller
      */
     public function create(string $transaction_id)
     {
+        if (!$this->isUserCanCrud()) {
+            return abort(403, $this->unauthorized_message);
+        }
+
         $product = Product::all();
 
         return view('transaction_detail.create', [
@@ -44,6 +49,10 @@ class TransactionDetailController extends Controller
      */
     public function store(TransactionDetailRequest $request)
     {
+        if (!$this->isUserCanCrud()) {
+            return abort(403, $this->unauthorized_message);
+        }
+
         $data = $request->validated();
 
         TransactionDetail::create($data);
@@ -66,6 +75,10 @@ class TransactionDetailController extends Controller
      */
     public function edit(string $id, TransactionDetail $detail)
     {
+        if (!$this->isUserCanCrud()) {
+            return abort(403, $this->unauthorized_message);
+        }
+
         $product = Product::all();
         
         return view('transaction_detail.edit', [
@@ -80,6 +93,10 @@ class TransactionDetailController extends Controller
      */
     public function update(TransactionDetailRequest $request, string $id, TransactionDetail $detail)
     {
+        if (!$this->isUserCanCrud()) {
+            return abort(403, $this->unauthorized_message);
+        }
+
         $data = $request->validated();
 
         $detail->update($data);
@@ -93,6 +110,10 @@ class TransactionDetailController extends Controller
      */
     public function destroy(string $id, TransactionDetail $detail)
     {
+        if (!$this->isUserCanCrud()) {
+            return abort(403, $this->unauthorized_message);
+        }
+
         $detail->delete();
 
         return redirect()->back()->with('success', "Transaksi berhasil dihapus!");
@@ -104,5 +125,10 @@ class TransactionDetailController extends Controller
         $used = $transaction->trans_type == 'sell';
         $serial = SerialNumber::where('serial_no', $serial_no)->first();
         $serial->update(['used_table' => $used]);
+    }
+
+    private function isUserCanCrud()
+    {
+        return auth()->user()->hasPermissionTo('crud transaction');
     }
 }
